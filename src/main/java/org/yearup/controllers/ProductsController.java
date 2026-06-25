@@ -44,6 +44,7 @@ public class ProductsController
         return product;
     }
 
+
     @PostMapping()
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Product> addProduct(@RequestBody Product product)

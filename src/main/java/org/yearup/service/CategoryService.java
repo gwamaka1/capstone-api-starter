@@ -23,23 +23,28 @@ public class CategoryService
 
     public Category getById(int categoryId)
     {
-        return categoryRepository.getById(categoryId);
+        return categoryRepository.findById(categoryId).orElse(null);
     }
 
     public Category create(Category category)
     {
-        // create a new category
-        return null;
+        category.setCategoryId(0);                 // ignore any client-sent id; let DB assign
+        return categoryRepository.save(category);
     }
 
     public Category update(int categoryId, Category category)
     {
-        // update category and return the updated category
-        return null;
+        Category existing = categoryRepository.findById(categoryId).orElse(null);
+        if (existing == null)
+            return null;                            // controller turns this into 404
+
+        existing.setName(category.getName());
+        existing.setDescription(category.getDescription());
+        return categoryRepository.save(existing);
     }
 
     public void delete(int categoryId)
     {
-        // delete category
+        categoryRepository.deleteById(categoryId);
     }
 }
