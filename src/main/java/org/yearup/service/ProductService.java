@@ -18,15 +18,12 @@ public class ProductService
 
     public List<Product> search(Integer categoryId, Double minPrice, Double maxPrice, String subCategory)
     {
-        List<Product> products = categoryId != null
-                ? productRepository.findByCategoryId(categoryId)
-                : productRepository.findAll();
+        List<Product> products =  productRepository.findAll();
 
-        return products.stream()
+        return products.stream().filter(p -> categoryId == null || categoryId.equals(p.getCategoryId()))
                        .filter(p -> minPrice == null || p.getPrice() >= minPrice)
                        .filter(p -> maxPrice == null || p.getPrice() <= maxPrice)
                        .filter(p -> subCategory == null || subCategory.equalsIgnoreCase(p.getSubCategory()))
-                       .filter(Product::isFeatured)
                        .toList();
     }
 
