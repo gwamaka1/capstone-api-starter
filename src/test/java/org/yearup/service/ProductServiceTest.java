@@ -61,4 +61,23 @@ class ProductServiceTest
         assertEquals(1, result.size(), "Only products between 25 and 75 should match.");
         assertTrue(result.contains(mid));
     }
+    @Test
+    public void update_changesStock_andPersistsIt()
+    {
+        // arrange: the product currently in the "database" has stock 10
+        Product existing = new Product(1, "Tee", 19.99, 1, "desc", "Black", 10, false, "tee.jpg");
+        when(productRepository.findById(1)).thenReturn(java.util.Optional.of(existing));
+        // save returns whatever it's given (the updated entity)
+        when(productRepository.save(org.mockito.ArgumentMatchers.any(Product.class)))
+                .thenAnswer(inv -> inv.getArgument(0));
+
+        // the incoming edit sets stock to 999
+        Product incoming = new Product(0, "Tee", 19.99, 1, "desc", "Black", 999, false, "tee.jpg");
+
+        // act
+        Product result = productService.update(1, incoming);
+
+        // assert: the new stock made it through — this fails before setStock is added
+        assertEquals(999, result.getStock(), "Stock must persist on update.");
+    }
 }
