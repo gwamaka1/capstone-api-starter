@@ -62,4 +62,9 @@ public class ShoppingCartService {
         // return the freshly-rebuilt cart
         return getByUserId(userId);
     }
+    public ShoppingCart clearCart(int userId)
+    {
+        shoppingCartRepository.deleteByUserId(userId);
+        return getByUserId(userId);   // returns the now-empty cart
+    }
 }
