@@ -1,5 +1,6 @@
 package org.yearup.controllers;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -55,7 +56,7 @@ public class CategoriesController
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Category> addCategory(@RequestBody Category category)
+    public ResponseEntity<Category> addCategory(@Valid @RequestBody Category category)
     {
         Category saved = categoryService.create(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
@@ -63,7 +64,7 @@ public class CategoriesController
 
     @PutMapping("{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Category updateCategory(@PathVariable int id, @RequestBody Category category)
+    public Category updateCategory(@PathVariable int id, @Valid @RequestBody Category category)
     {
         Category updated = categoryService.update(id, category);
         if (updated == null)

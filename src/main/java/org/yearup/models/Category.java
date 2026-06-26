@@ -1,6 +1,7 @@
 package org.yearup.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "categories")
@@ -11,7 +12,9 @@ public class Category
     @Column(name = "category_id")
     private int categoryId;
 
+
     @Column(name = "name")
+    @NotBlank(message = "Category name is required")
     private String name;
 
     @Column(name = "description")
