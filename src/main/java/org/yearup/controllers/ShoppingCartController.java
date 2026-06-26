@@ -56,7 +56,10 @@ public class ShoppingCartController
     // the BODY should be a ShoppingCartItem - quantity is the only value that will be updated; return the cart (200 OK)
 
 
-    // add a DELETE method to clear all products from the current users cart
-    // https://localhost:8080/cart  - return the (now empty) cart so the front end can refresh it (200 OK)
-
+    @DeleteMapping
+    public ShoppingCart clearCart(Principal principal)
+    {
+        User user = userService.getByUserName(principal.getName());
+        return shoppingCartService.clearCart(user.getId());
+    }
 }
