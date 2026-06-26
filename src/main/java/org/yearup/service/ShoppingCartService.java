@@ -39,4 +39,27 @@ public class ShoppingCartService {
 
         return cart;
     }
+    public ShoppingCart addProduct(int userId, int productId)
+    {
+        CartItem existing = shoppingCartRepository.findByUserIdAndProductId(userId, productId);
+
+        if (existing == null)
+        {
+            // not in cart yet -> insert a new row with quantity 1
+            CartItem item = new CartItem();
+            item.setUserId(userId);
+            item.setProductId(productId);
+            item.setQuantity(1);
+            shoppingCartRepository.save(item);
+        }
+        else
+        {
+            // already in cart -> bump quantity by 1
+            existing.setQuantity(existing.getQuantity() + 1);
+            shoppingCartRepository.save(existing);
+        }
+
+        // return the freshly-rebuilt cart
+        return getByUserId(userId);
+    }
 }
