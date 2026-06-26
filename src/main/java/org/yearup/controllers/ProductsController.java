@@ -39,7 +39,7 @@ public class ProductsController
         Product product = productService.getById(id);
 
         if (product == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No product with id "+ id);
 
         return product;
     }
@@ -58,7 +58,7 @@ public class ProductsController
     public Product updateProduct(@PathVariable int id, @RequestBody Product product)
     {
         if (productService.getById(id) == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No product with id "+ id);
 
         return productService.update(id, product);
     }
@@ -68,7 +68,7 @@ public class ProductsController
     public ResponseEntity<Void> deleteProduct(@PathVariable int id)
     {
         if (productService.getById(id) == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No product with id "+ id);
 
         productService.delete(id);
         return ResponseEntity.noContent().build();
