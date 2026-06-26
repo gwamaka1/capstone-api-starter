@@ -23,6 +23,11 @@ public class ShoppingCartController
     // a shopping cart controller depends on the service layer
     private ShoppingCartService shoppingCartService;
     private UserService userService;
+    public ShoppingCartController(ShoppingCartService shoppingCartService, UserService userService)
+    {
+        this.shoppingCartService = shoppingCartService;
+        this.userService = userService;
+    }
 
 
 
