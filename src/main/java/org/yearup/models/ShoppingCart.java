@@ -1,6 +1,10 @@
 package org.yearup.models;
 
+import org.yearup.repository.ShoppingCartRepository;
+import org.yearup.service.ProductService;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ShoppingCart
@@ -41,5 +45,6 @@ public class ShoppingCart
 
         return total;
     }
+
 
 }
