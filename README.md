@@ -98,7 +98,8 @@ The `param == null || matches` pattern is what makes it work: when a query param
 ---
 
 ## Demo
-![Demo](compressed-ezgif.com-video-to-gif-converter.gif)
+<img width="800" height="479" alt="compressed-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/029b99a0-2ba7-47a8-b9bd-84cc7e4efe86" />
+
 
 ## Future Work
 
