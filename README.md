@@ -98,7 +98,7 @@ The `param == null || matches` pattern is what makes it work: when a query param
 ---
 
 ## Demo
-[compressed-ezgif.com-video-to-gif-converter.gif](../../../compressed-ezgif.com-video-to-gif-converter.gif)
+<img alt="compressed-ezgif.com-video-to-gif-converter.gif" src="C:\Users\mwamt\Downloads\compressed-ezgif.com-video-to-gif-converter.gif"/>[compressed-ezgif.com-video-to-gif-converter.gif](../../../compressed-ezgif.com-video-to-gif-converter.gif)
 
 ## Future Work
 
