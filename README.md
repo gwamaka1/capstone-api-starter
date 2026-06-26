@@ -74,28 +74,6 @@ spring.datasource.password=your_password
 - **Maven** — build and dependency management
 ---
 
-## An Interesting Piece of Code
-
-The most instructive fix was **Bug 1**, the product search. Some products never appeared in results. The cause was a single unconditional line in the service's `search` method:
-
-```java
-.filter(Product::isFeatured)   // silently dropped every non-featured product
-```
-
-With no guard, that filter ran on every search and removed any product whose `featured` flag was false. Removing it left the catalog filtering to a set of guarded, combinable filters:
-
-```java
-return products.stream()
-        .filter(p -> categoryId  == null || categoryId.equals(p.getCategoryId()))
-        .filter(p -> minPrice    == null || p.getPrice() >= minPrice)
-        .filter(p -> maxPrice    == null || p.getPrice() <= maxPrice)
-        .filter(p -> subCategory == null || subCategory.equalsIgnoreCase(p.getSubCategory()))
-        .toList();
-```
-
-The `param == null || matches` pattern is what makes it work: when a query parameter is absent, its condition short-circuits to `true`, so that filter doesn't apply. Every combination of `cat`, `minPrice`, `maxPrice`, and `subCategory` stacks correctly, including the "no filters" case that now returns the full catalog. A Mockito unit test feeds in one featured and one non-featured product, calls `search` with no filters, and asserts both come back — turning red the moment the `isFeatured` line is reintroduced.
- 
----
 
 ## Demo
 <img width="800" height="479" alt="compressed-ezgif com-video-to-gif-converter" src="https://github.com/user-attachments/assets/029b99a0-2ba7-47a8-b9bd-84cc7e4efe86" />
